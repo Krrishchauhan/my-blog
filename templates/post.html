@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<article>
+  <h2>{{ post.title }}</h2>
+  <p class="date">{{ post.date_created.strftime('%Y-%m-%d %H:%M') }}</p>
+  <div class="content">{{ post.content|nl2br }}</div>
+  <div class="actions">
+    <a href="{{ url_for('edit', id=post.id) }}">Edit</a> |
+    <form action="{{ url_for('delete', id=post.id) }}" method="post" style="display:inline;">
+      <button type="submit" onclick="return confirm('Delete?')">Delete</button>
+    </form> |
+    <a href="{{ url_for('index') }}">Back Home</a>
+  </div>
+</article>
+{% endblock %}
