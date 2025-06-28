@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if posts %}
+    {% for post in posts %}
+      <article class="post-snippet">
+        <h2><a href="{{ url_for('post', id=post.id) }}">{{ post.title }}</a></h2>
+        <p class="date">{{ post.date_created.strftime('%Y-%m-%d') }}</p>
+        <p>{{ post.content[:200] }}…</p>
+        <div class="actions">
+          <a href="{{ url_for('post', id=post.id) }}">Read more</a> |
+          <a href="{{ url_for('edit', id=post.id) }}">Edit</a> |
+          <form action="{{ url_for('delete', id=post.id) }}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('Delete?')">Delete</button>
+          </form>
+        </div>
+      </article>
+    {% endfor %}
+  {% else %}
+    <p>No posts yet. <a href="{{ url_for('create') }}">Create one</a>!</p>
+  {% endif %}
+{% endblock %}
