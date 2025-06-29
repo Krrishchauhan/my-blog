@@ -69,21 +69,15 @@ def delete(id):
         return redirect(url_for('index'))
     except Exception as e:
         return f'There was an error deleting your post: {e}'
-
-if __name__ == '__main__':
-    app.run(debug=True)
 from flask_frozen import Freezer
-
 freezer = Freezer(app)
 
 @freezer.register_generator
 def post():
-    # yields each post URL so Frozen-Flask knows which pages to build
     for p in Post.query.all():
         yield {'id': p.id}
 
 if __name__ == '__main__':
-    # change this line to:
-    #   freezer.freeze()
-    # when you want to generate static files
     freezer.freeze()
+
+
